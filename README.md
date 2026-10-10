@@ -10,7 +10,7 @@
 </p>
 <p align="center">UN1CA <i>(/ˈu.ni.ka/)</i> is a work-in-progress custom firmware for Samsung Galaxy devices.</p>
 
-> **EXT4 build by neptorr:** This fork sets **EXT4** as the default target filesystem on the `ext4-build` branch (now the default branch). The build was completed locally for the **Samsung Galaxy A52s 5G (`a52sxq`)** and the resulting ROM was successfully tested on the author's phone. This is a personal device/build configuration, not an official UN1CA release. See [the build details](https://github.com/neptorr/UN1CA-EXT4/blob/main/BUILD_DETAILS.md).
+> **EXT4 build by neptorr:** This fork sets **EXT4** as the default target filesystem on the `ext4-build` branch (now the default branch). The build was completed locally for the **Samsung Galaxy A52s 5G (`a52sxq`)** and the resulting ROM was successfully tested on the author's phone. This is a personal device/build configuration, not an official UN1CA release. See [the build details](BUILD_DETAILS.md).
 
 <p align="center">
   <a href="https://github.com/salvogiangri/UN1CA/discussions">🚀 Discussions</a>
