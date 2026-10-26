@@ -114,7 +114,7 @@ jobs:
             echo "WORK_DIR=$WORK_DIR"
             echo "TMP_DIR=$TMP_DIR"
           } >> "$GITHUB_ENV"
-          sed -e "/Automatically/d" -e "s/\"//g" "$OUT_DIR/config.sh" >> "$GITHUB_ENV"
+          sed -e "/Automatically/d" -e "s/\\"//g" "$OUT_DIR/config.sh" >> "$GITHUB_ENV"
           echo "$TOOLS_DIR/bin" >> "$GITHUB_PATH"
 
       - name: Build dependencies
@@ -133,3 +133,24 @@ jobs:
 
       - name: Build ROM
         run: ./scripts/make_rom.sh
+
+      - name: Cleanup build files
+        run: ./scripts/cleanup.sh work_dir fw odin
+
+      - name: Build flashable ZIP
+        run: ./scripts/build_flashable_zip.sh
+
+      - name: Get ZIP filename
+        id: get_filename
+        run: |
+          source ./buildenv.sh ${{ matrix.target }}
+          ZIP_FILE=$(ls out/*.zip | head -1)
+          ZIP_NAME=$(basename "$ZIP_FILE")
+          echo "zip_name=$ZIP_NAME" >> "$GITHUB_OUTPUT"
+          echo "Found ZIP file: $ZIP_NAME"
+
+      - name: Upload ZIP artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.get_filename.outputs.zip_name }}
+          path: out/*.zip
