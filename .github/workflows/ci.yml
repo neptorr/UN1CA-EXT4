@@ -89,9 +89,8 @@ jobs:
             libgtest-dev libprotobuf-dev libunwind-dev libpcre2-dev \
             libzstd-dev lld protobuf-compiler webp
 
-          # Load filesystem modules if they are not already available.
+          # Load EROFS support if it is not already available.
           grep -qw erofs /proc/filesystems || sudo modprobe erofs
-          grep -qw f2fs /proc/filesystems || sudo modprobe f2fs
 
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
