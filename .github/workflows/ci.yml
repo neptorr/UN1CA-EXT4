@@ -80,19 +80,24 @@ jobs:
         with:
           retain: 'compiler_cmake'
 
+      
       - name: Set up build environment
         run: |
           sudo apt update
           DEBIAN_FRONTEND=noninteractive sudo apt install -yq \
             attr ccache clang ffmpeg libbrotli-dev libbz2-dev \
             libgtest-dev libprotobuf-dev libunwind-dev libpcre2-dev \
-            libzstd-dev linux-modules-extra-$(uname -r) lld protobuf-compiler webp
-          sudo modprobe erofs f2fs
+            libzstd-dev lld protobuf-compiler webp
+
+          # Load filesystem modules if they are not already available.
+          grep -qw erofs /proc/filesystems || sudo modprobe erofs
+          grep -qw f2fs /proc/filesystems || sudo modprobe f2fs
+
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           echo -n "${{ secrets.PLATFORM_KEY_PK8 }}" | base64 --decode > security/unica_platform.pk8
           echo -n "${{ secrets.PLATFORM_KEY_PEM }}" | base64 --decode > security/unica_platform.x509.pem
-
+      
       - name: Set up JDK 17
         uses: actions/setup-java@v6
         with:
