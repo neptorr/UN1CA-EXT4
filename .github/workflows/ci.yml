@@ -141,14 +141,11 @@ jobs:
       - name: Extract stock firmwares
         run: ./scripts/extract_fw.sh
 
-      - name: Build ROM
-        run: ./scripts/make_rom.sh
+      - name: Build ROM and flashable ZIP
+        run: ./scripts/make_rom.sh --build-rom-zip
 
       - name: Cleanup build files
         run: ./scripts/cleanup.sh work_dir fw odin
-
-      - name: Build flashable ZIP
-        run: ./scripts/build_flashable_zip.sh
 
       - name: Get ZIP filename
         id: get_filename
